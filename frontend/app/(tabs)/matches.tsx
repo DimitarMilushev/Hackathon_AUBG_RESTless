@@ -1,31 +1,49 @@
-import { StyleSheet } from 'react-native';
+import React from "react";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  FlatList,
+} from "react-native";
+import styles, { DARK_GRAY } from "../../assets/styles";
+import Icon from "../../components/Icon";
+import demo from "../../assets/demo/demo";
+import CardItem from "../../components/CardItem";
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+const Matches = () => (
+  <ImageBackground
+    source={{
+      uri: "https://www.freecodecamp.org/news/content/images/size/w2000/2021/06/w-qjCHPZbeXCQ-unsplash.jpg",
+    }}
+    style={styles.bg}
+  >
+    <View style={styles.containerMatches}>
+      <View style={styles.top}>
+        <Text style={styles.title}>Matches</Text>
+        <TouchableOpacity>
+          <Icon name="ellipsis-vertical" color={DARK_GRAY} size={20} />
+        </TouchableOpacity>
+      </View>
 
-export default function TabTwoScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+      <FlatList
+        numColumns={2}
+        data={demo}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity>
+            <CardItem
+              image={item.image}
+              name={item.name}
+              isOnline={item.isOnline}
+              hasVariant
+            />
+          </TouchableOpacity>
+        )}
+      />
     </View>
-  );
-}
+  </ImageBackground>
+);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+export default Matches;

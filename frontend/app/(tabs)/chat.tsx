@@ -1,31 +1,47 @@
-import { StyleSheet } from 'react-native';
+import React from "react";
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  View,
+  FlatList,
+} from "react-native";
+import Icon from "../../components/Icon";
+import Message from "../../components/Message";
+import styles, { DARK_GRAY } from "../../assets/styles";
+import data from "../../assets/demo/demo";
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+const Messages = () => (
+  <ImageBackground
+    source={{
+      uri: "https://www.freecodecamp.org/news/content/images/size/w2000/2021/06/w-qjCHPZbeXCQ-unsplash.jpg",
+    }}
+    style={styles.bg}
+  >
+    <View style={styles.containerMessages}>
+      <View style={styles.top}>
+        <Text style={styles.title}>Messages</Text>
+        <TouchableOpacity>
+          <Icon name="ellipsis-vertical" color={DARK_GRAY} size={20} />
+        </TouchableOpacity>
+      </View>
 
-export default function TabTwoScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+      <FlatList
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity>
+            <Message
+              image={item.image}
+              name={item.name}
+              lastMessage={item.message}
+            />
+          </TouchableOpacity>
+        )}
+      />
     </View>
-  );
-}
+  </ImageBackground>
+);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+export default Messages;
