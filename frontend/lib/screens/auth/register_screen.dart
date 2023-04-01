@@ -15,6 +15,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   bool _isLoading = false;
 
@@ -54,6 +55,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
             SizedBox(height: 5),
             TextField(
               controller: passwordController,
+              // labelText: 'Password',
+              obscureText: true,
+              keyboardType: TextInputType.text,
+            ),
+            SizedBox(height: 5),
+            TextField(
+              controller: confirmPasswordController,
               // labelText: 'Password',
               obscureText: true,
               keyboardType: TextInputType.text,

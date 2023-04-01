@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/providers/auth_providers.dart';
 import 'package:frontend/screens/auth/register_screen.dart';
+import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/widgets/form_wrapper.dart';
 import 'package:frontend/widgets/loading_screen_wrapper.dart';
 import 'package:frontend/widgets/rounded_button.dart';
@@ -17,6 +18,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -25,17 +27,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // _userProvider = Provider.of(context, listen: false);
-  }
-
-  void loginPressed() async {
-    setState(() {
-      _isLoading = true;
-    });
-    Future.delayed(Duration(seconds: 2), () async {
-      await ref.read(authProvider).login();
-      if (mounted) context.go(RegisterScreen.path);
-    });
   }
 
   @override
@@ -43,6 +34,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return LoadableScreenWrapper(
       isLoading: _isLoading,
       child: AuthFormWrapper(
+        formKey: formKey,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,21 +44,37 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             SizedBox(height: 40),
             TextField(
+              decoration: InputDecoration(hintText: 'Email...'),
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 5),
             TextField(
+              decoration: InputDecoration(hintText: 'Password...'),
               controller: passwordController,
-              // labelText: 'Password',
               obscureText: true,
               keyboardType: TextInputType.text,
             ),
             SizedBox(height: 64),
-            RoundedButton(text: 'LOGIN', onPressed: () => loginPressed())
+            RoundedButton(text: 'LOGIN', onPressed: loginPressed)
           ],
         ),
       ),
     );
+  }
+
+  void loginPressed() async {
+    // if (formKey.currentState?.validate() ?? false) return;
+    setState(() {
+      _isLoading = true;
+    });
+    final res = await ref
+        .read(authProvider)
+        .login(emailController.text, passwordController.text);
+    ref.read(sessionProvider.notifier).loggedIn(res, emailController.text);
+    if (mounted) context.go(DashboardScreen.path);
+
+    // context.go('/');
+    // if (mounted) context.go(RegisterScreen.path);
   }
 }
