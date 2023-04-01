@@ -1,31 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:frontend/screens/auth/register_screen.dart';
+import 'package:frontend/widgets/form_wrapper.dart';
+import 'package:frontend/widgets/loading_screen_wrapper.dart';
+import 'package:frontend/widgets/rounded_button.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
-  static String path = '/login';
+class LoginScreen extends StatefulWidget {
+  static const String path = '/login';
+
   const LoginScreen({super.key});
 
   @override
+  State<StatefulWidget> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // _userProvider = Provider.of(context, listen: false);
+  }
+
+  void loginPressed() async {
+    setState(() {
+      _isLoading = true;
+    });
+    Future.delayed(Duration(seconds: 2), () => context.go(RegisterScreen.path));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey();
-    return Align(
-        child: SizedBox(
-            width: 224,
-            child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    TextFormField(),
-                    TextFormField(),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 24),
-                        child: ElevatedButton(
-                            onPressed: () => context.push(RegisterScreen.path),
-                            child: Text('asd'))),
-                  ],
-                ))));
+    return LoadableScreenWrapper(
+      isLoading: _isLoading,
+      child: AuthFormWrapper(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Login to your account',
+              style: Theme.of(context).textTheme.headline3,
+            ),
+            SizedBox(height: 40),
+            TextField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(height: 5),
+            TextField(
+              controller: passwordController,
+              // labelText: 'Password',
+              obscureText: true,
+              keyboardType: TextInputType.text,
+            ),
+            SizedBox(height: 64),
+            RoundedButton(text: 'LOGIN', onPressed: () => loginPressed())
+          ],
+        ),
+      ),
+    );
   }
 }

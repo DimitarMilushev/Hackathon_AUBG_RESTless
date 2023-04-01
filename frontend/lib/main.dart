@@ -17,8 +17,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       routerConfig: _routerConfig,
-      builder: (context, child) => Scaffold(
-        body: child,
+      builder: (context, child) => SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+              title: Text(
+            'PlayDate',
+            style: Theme.of(context).textTheme.bodyMedium,
+          )),
+          body: child,
+        ),
       ),
       theme: ThemeData(
         // This is the theme of your application.
