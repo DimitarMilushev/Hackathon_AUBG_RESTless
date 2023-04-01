@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend/providers/auth_providers.dart';
 import 'package:frontend/screens/auth/register_screen.dart';
 import 'package:frontend/widgets/form_wrapper.dart';
 import 'package:frontend/widgets/loading_screen_wrapper.dart';
 import 'package:frontend/widgets/rounded_button.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const String path = '/login';
 
   const LoginScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -30,7 +32,10 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isLoading = true;
     });
-    Future.delayed(Duration(seconds: 2), () => context.go(RegisterScreen.path));
+    Future.delayed(Duration(seconds: 2), () async {
+      await ref.read(authProvider).login();
+      if (mounted) context.go(RegisterScreen.path);
+    });
   }
 
   @override
