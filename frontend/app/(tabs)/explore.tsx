@@ -17,9 +17,11 @@ import { SvgUri } from "react-native-svg";
 import axios from "axios";
 
 interface Person {
+  id: number;
   name: string;
   age: number;
   photo: string;
+  description: string;
 }
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
@@ -43,10 +45,29 @@ function generateAge(min: number, max: number) {
 export default function Explore(): JSX.Element {
   const [personList, setPersonList] = useState<Person[]>([
     {
+      id: 1,
       name: "Vesko",
       age: 22,
       photo:
         "https://activebulgariansociety.org/uploads//blog/ad533bfcfdaee82ebc54cf69d5561e6c.jpg",
+      description: "I am very cool guy. Swipe me and let's have fun.",
+    },
+    {
+      id: 2,
+      name: "Vesko",
+      age: 22,
+      photo:
+        "https://activebulgariansociety.org/uploads//blog/ad533bfcfdaee82ebc54cf69d5561e6c.jpg",
+      description: "I am very cool guy. Swipe me and let's have fun.",
+    },
+
+    {
+      id: 3,
+      name: "Vesko",
+      age: 22,
+      photo:
+        "https://activebulgariansociety.org/uploads//blog/ad533bfcfdaee82ebc54cf69d5561e6c.jpg",
+      description: "I am very cool guy. Swipe me and let's have fun.",
     },
   ]);
   const [liked, setLiked] = useState<number>(0);
@@ -91,8 +112,6 @@ export default function Explore(): JSX.Element {
     })
   );
 
-  console.log(personList);
-
   // useEffect(() => {
   //   async function fetchNames() {
   //     const response = await axios.get<string[]>(api.names(100), {
@@ -128,7 +147,7 @@ export default function Explore(): JSX.Element {
           return (
             <Animated.View
               {...propsSpread}
-              key={person.name}
+              key={person.id}
               style={cardStyles.card}
             >
               {currentCard && (
@@ -158,26 +177,18 @@ export default function Explore(): JSX.Element {
                   }}
                 />
               </View>
+              <Text style={styles.descriptionLabel}>{person.description}</Text>
             </Animated.View>
           );
         })
         .reverse()}
-      <View style={styles.counterContainer}>
-        <View>
-          <Text style={styles.counterText}>Liked: {liked}</Text>
-        </View>
-        <View>
-          <Text style={styles.counterText}>Disliked: {disLiked}</Text>
-        </View>
-      </View>
     </View>
   );
 }
 
 interface Styles {
+  descriptionLabel: TextStyle;
   screenContainer: ViewStyle;
-  counterContainer: ViewStyle;
-  counterText: TextStyle;
   imageContainer: ViewStyle;
   nameLabel: TextStyle;
   ageLabel: TextStyle;
@@ -192,14 +203,6 @@ const styles: Styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "stretch",
   },
-  counterContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 32,
-  },
-  counterText: {
-    fontSize: 32,
-  },
   imageContainer: {
     borderRadius: 150,
     overflow: "hidden",
@@ -212,6 +215,10 @@ const styles: Styles = StyleSheet.create({
   },
   ageLabel: {
     fontSize: 36,
+    padding: 16,
+  },
+  descriptionLabel: {
+    fontSize: 24,
     padding: 16,
   },
 });
