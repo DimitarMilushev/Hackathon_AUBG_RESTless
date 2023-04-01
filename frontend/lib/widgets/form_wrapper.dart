@@ -10,6 +10,7 @@ class AuthFormWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       child: Container(
+        padding: EdgeInsets.symmetric(vertical: 64),
         constraints: BoxConstraints(maxWidth: 248),
         child: body,
       ),

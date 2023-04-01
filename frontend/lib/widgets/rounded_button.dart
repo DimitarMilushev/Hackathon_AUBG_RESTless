@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/widgets/common_text.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
@@ -19,7 +18,10 @@ class RoundedButton extends StatelessWidget {
           shape: MaterialStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
         ),
-        child: CommonText.medium(text),
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
       ),
     );
   }
