@@ -55,6 +55,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="explore"
+        options={{
+          title: "Explore",
+          tabBarIcon: () => <TabBarIcon name="search" focused={false} />,
+        }}
+      />
+      <Tabs.Screen
         name="matches"
         options={{
           title: "Matches",
