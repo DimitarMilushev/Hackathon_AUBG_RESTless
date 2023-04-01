@@ -13,7 +13,19 @@ When you start chatting with a person you lose search/swipe functions
 ### Advisor
 * Ice-breaker
 * General relationship advices
+~ Make sure is feasible (Why it's not done yet?)
 
 ### Milestones 
+* Leveling-up based on interactions
+  * Events visited
+  * Dates booked
+  * Overall messaging time
+  * Message feedback 
+    * Message Like
+    * Positive messages (Heart emojis, compliments, etc...)
 
-
+### Marketing
+* Tik-tok
+* Instagram
+* Facebook
+* Youtube
