@@ -1,35 +1,61 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import React, { useState, useCallback, useEffect } from "react";
+import { GiftedChat } from "react-native-gifted-chat";
+import { StyleSheet, SafeAreaView, View, Text } from "react-native";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+// import * as firebase from "firebase";
 
-export default function ModalScreen() {
+export default function ChatScreen() {
+  const [messages, setMessages] = useState([]);
+
+  // useEffect(() => {
+  //   const dbRef = firebase.database().ref('messages');
+
+  //   dbRef.on('child_added', snapshot => {
+  //     const newMessage = snapshot.val();
+  //     setMessages(previousMessages =>
+  //       GiftedChat.append(previousMessages, newMessage),
+  //     );
+  //   });
+
+  //   return () => dbRef.off('child_added');
+  // }, []);
+
+  const onSend = useCallback((newMessages = []) => {
+    console.warn("message was sent");
+    // setMessages(previousMessages =>
+    //   GiftedChat.append(previousMessages, newMessages),
+    // );
+    // const dbRef = firebase.database().ref('messages').push();
+    // dbRef.set(newMessages[0]);
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/modal.tsx" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Text style={{ fontSize: 18 }}>Alexa</Text>
+      </View>
+      <GiftedChat
+        messages={messages}
+        onSend={(newMessages) => onSend(newMessages)}
+        user={{ _id: 1 }}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
 });
