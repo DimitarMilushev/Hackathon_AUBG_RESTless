@@ -23,7 +23,10 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       routerConfig: GoRouter(
-          navigatorKey: _rootNavigatorKey, routes: ref.read(routerProvider)),
+        initialLocation: LoginScreen.path,
+        navigatorKey: _rootNavigatorKey,
+        routes: ref.read(routerProvider),
+      ),
       builder: (context, child) => SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -58,14 +61,6 @@ bool isLoggedIn = false;
 
 final routerProvider = Provider<List<RouteBase>>(
   (ref) => [
-    GoRoute(
-      path: LoginScreen.path,
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: RegisterScreen.path,
-      builder: (context, state) => const RegisterScreen(),
-    ),
     ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
@@ -85,6 +80,16 @@ final routerProvider = Provider<List<RouteBase>>(
             builder: (context, state) => const AboutScreen(),
           )
         ]),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: LoginScreen.path,
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: RegisterScreen.path,
+      builder: (context, state) => const RegisterScreen(),
+    ),
   ],
 );
 

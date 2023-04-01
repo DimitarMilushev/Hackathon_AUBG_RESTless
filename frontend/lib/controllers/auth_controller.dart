@@ -1,25 +1,28 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:frontend/models/user_model.dart';
 
 abstract class IAuthController {
-  Future login(String email, String password);
+  Future<UserLoginResponse> login(UserLoginRequest data);
   Future register();
   Future logout();
 }
 
 class AuthController implements IAuthController {
-  final Dio _dio = Dio();
+  final Dio _dio = Dio(BaseOptions(
+    baseUrl: 'http://192.168.134.109:8081',
+    connectTimeout: Duration(seconds: 5),
+    receiveTimeout: Duration(seconds: 5),
+  ));
 
   @override
-  Future login(String email, String password) async {
+  Future<UserLoginResponse> login(UserLoginRequest data) async {
     final res = await _dio.post(
-      'https://my-json-server.typicode.com/typicode/demo/posts',
-      data: {
-        'email': email,
-        'password': password,
-      },
+      '/login',
+      data: jsonEncode(data.toJson()),
     );
-    if (![200, 201].contains(res.statusCode)) throw Exception('Failed');
-    return res.data.toString();
+    return UserLoginResponse.fromJson(res.data);
   }
 
   @override
