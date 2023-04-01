@@ -9,6 +9,7 @@ import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/widgets/form_wrapper.dart';
 import 'package:frontend/widgets/loading_screen_wrapper.dart';
 import 'package:frontend/widgets/rounded_button.dart';
+import 'package:frontend/widgets/text_button.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -42,7 +43,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Login to your account',
+              'Welcome',
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline3,
             ),
             SizedBox(height: 40),
@@ -63,7 +65,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               validator: (_) => errorMessage,
             ),
             SizedBox(height: 64),
-            RoundedButton(text: 'LOGIN', onPressed: loginPressed)
+            RoundedButton(text: 'LOGIN', onPressed: loginPressed),
+            SizedBox(height: 5),
+            CustomTextButton(
+              text: "Register",
+              onPressed: () => context.push(RegisterScreen.path),
+            )
           ],
         ),
       ),
