@@ -6,10 +6,7 @@ import com.restless_hackaubg.models.dtos.LoginDto;
 import com.restless_hackaubg.repositories.UserRepository;
 import com.restless_hackaubg.services.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
@@ -25,7 +22,7 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @PostMapping
     public Map<String, String> login(@Valid @RequestBody LoginDto loginDto){
         Map<String, String > result = new HashMap<>();
         User user;
