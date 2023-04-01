@@ -15,5 +15,16 @@ When you start chatting with a person you lose search/swipe functions
 * General relationship advices
 
 ### Milestones 
+* Leveling-up based on interactions
+  * Events visited
+  * Dates booked
+  * Overall messaging time
+  * Message feedback 
+    * Message Like
+    * Positive messages (Heart emojis, compliments, etc...)
 
-
+### Marketing
+* Tik-tok
+* Instagram
+* Facebook
+* Youtube
