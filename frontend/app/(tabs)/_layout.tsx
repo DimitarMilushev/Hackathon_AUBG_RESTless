@@ -48,7 +48,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="chat"
+        name="messages"
         options={{
           title: "Chat",
           tabBarIcon: () => <TabBarIcon name="chatbubble" focused={false} />,
