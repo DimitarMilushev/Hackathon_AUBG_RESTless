@@ -29,6 +29,9 @@ final mainTheme = ThemeData(
       titleLarge: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
       bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
     ),
+    inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(0.3)))),
     appBarTheme: AppBarTheme(color: _colorScheme.primary));
 
 // final inputFieldTheme

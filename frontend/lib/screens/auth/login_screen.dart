@@ -49,7 +49,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             SizedBox(height: 40),
             TextFormField(
-              decoration: InputDecoration(hintText: 'Email...'),
+              decoration: InputDecoration(
+                  border: Theme.of(context).inputDecorationTheme.border,
+                  hintText: 'Email...'),
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               validator: (_) {
@@ -84,11 +86,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _isLoading = true;
     });
     try {
-      final res = await ref.read(authProvider).login(
-          UserLoginRequest(emailController.text, passwordController.text));
+      // final res = await ref.read(authProvider).login(
+      //     UserLoginRequest(emailController.text, passwordController.text));
       ref
           .read(sessionProvider.notifier)
-          .loggedIn(res.token, emailController.text);
+          .loggedIn('res.token', emailController.text);
       if (mounted) context.go(DashboardScreen.path);
     } catch (err) {
       print(err);
