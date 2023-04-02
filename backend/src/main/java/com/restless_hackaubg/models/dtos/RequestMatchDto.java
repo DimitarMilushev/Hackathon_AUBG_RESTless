@@ -9,7 +9,6 @@ import java.util.List;
 //@NoArgsConstructor
 public class RequestMatchDto {
 
-    private Integer countryId;
     private Integer cityId;
     @NotNull(message = "You must provide gender")
     private Integer genderId;
@@ -20,14 +19,6 @@ public class RequestMatchDto {
 
 
     public RequestMatchDto() {
-    }
-
-    public Integer getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Integer countryId) {
-        this.countryId = countryId;
     }
 
     public Integer getCityId() {
