@@ -5,9 +5,7 @@ import 'package:frontend/models/tag_model.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:frontend/providers/auth_providers.dart';
 import 'package:frontend/providers/dashboard_providers.dart';
-import 'package:frontend/screens/chat_screen.dart';
 import 'package:frontend/widgets/matching_card.dart';
-import 'package:go_router/go_router.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   static const String path = '/';
@@ -24,7 +22,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     final provider = ref.watch(dashboardProvider.notifier);
     final tags = _getTags();
     return provider.isLoading
-        ? const CircularProgressIndicator()
+        ? const Center(child: CircularProgressIndicator())
         : provider.status == DashboardStatus.searching
             ? _SearchScreen(tags: tags)
             : _MatchingScreen(

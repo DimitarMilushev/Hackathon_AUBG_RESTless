@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend/controllers/session_controller.dart';
-import 'package:frontend/models/session.dart';
 import 'package:frontend/providers/auth_providers.dart';
 import 'package:frontend/screens/about_screen.dart';
 import 'package:frontend/screens/auth/login_screen.dart';
@@ -9,24 +7,27 @@ import 'package:frontend/screens/auth/register_screen.dart';
 import 'package:frontend/screens/chat_screen.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod/riverpod.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Flutter Demo',
       routerConfig: GoRouter(
-        initialLocation: DashboardScreen.path,
+        // initialLocation: LoginScreen.path,
         navigatorKey: _rootNavigatorKey,
-        routes: ref.read(routerProvider),
+        routes: ref.watch(routerProvider),
       ),
       builder: (context, child) => SafeArea(
         child: Scaffold(
@@ -46,28 +47,11 @@ class MyApp extends ConsumerWidget {
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 bool isLoggedIn = false;
 
 final routerProvider = Provider<List<RouteBase>>(
   (ref) => [
-    GoRoute(
-      path: DashboardScreen.path,
-      builder: (context, state) => const DashboardScreen(),
-    ),
-    // redirect: (context, state) =>
-    //     ref.read(sessionProvider.notifier).isLoggedIn
-    //         ? null
-    //         : LoginScreen.path),
-    GoRoute(
-      path: ChatScreen.path,
-      builder: (context, state) => const ChatScreen(),
-    ),
-    GoRoute(
-      path: AboutScreen.path,
-      builder: (context, state) => const AboutScreen(),
-    ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: LoginScreen.path,
@@ -77,6 +61,21 @@ final routerProvider = Provider<List<RouteBase>>(
       parentNavigatorKey: _rootNavigatorKey,
       path: RegisterScreen.path,
       builder: (context, state) => const RegisterScreen(),
+    ),
+    GoRoute(
+        path: DashboardScreen.path,
+        builder: (context, state) => const DashboardScreen(),
+        redirect: (context, state) =>
+            ref.read(sessionProvider.notifier).isLoggedIn
+                ? null
+                : LoginScreen.path),
+    GoRoute(
+      path: ChatScreen.path,
+      builder: (context, state) => const ChatScreen(),
+    ),
+    GoRoute(
+      path: AboutScreen.path,
+      builder: (context, state) => const AboutScreen(),
     ),
   ],
 );
