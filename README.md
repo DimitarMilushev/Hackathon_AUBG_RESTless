@@ -2,30 +2,39 @@
 ### AUBG hackathon project
 ### 31/3/2023
 
-# Dating App
 Dating is usually taken too seriously - why not make it fun?
 
-# Monogamous
-Promotes healthy relationships in a monogamous fashion.
-### Narrowing the options
-When you start chatting with a person you lose search/swipe functions
+Playdate is interest and personality-based dating app that focuses on the algorithmic approach of matching people. Our dating platform offers a refreshing outlook on the dating application market with a focus on emphasising authenticity and developing healthy relationships. 
 
-### Advisor
-* Ice-breaker
-* General relationship advices
-~ Make sure is feasible (Why it's not done yet?)
+Our virtual advisor feature will help users navigate their relationships in a way while there will also be various systems that will be put in place to detect fraudulent activity.
 
-### Milestones 
-* Leveling-up based on interactions
-  * Events visited
-  * Dates booked
+### How It works
+  1) Sign In
+  2) Fill your interests
+  3) Take a personality quiz
+  4) See the profiles of people whose compatibility match is higher than 70%.
+  5) Start chating with them
+  6) Build meaningful connections
+
+### Key Features 
+# Advisor
+* An AI agent that helps you write witty bios and gives advice on how to approach online dating in a right way
+* Helps you with giving ideas for ice-breakers based on the profile of the person you want to chat with.
+* Occasionaly pops up to give you tips how to keep the conversation rolling or ask for a date.
+* Personal chat with the advisor
+
+# Milestones - Leveling-up with your matches based on interactions
   * Overall messaging time
   * Message feedback 
     * Message Like
     * Positive messages (Heart emojis, compliments, etc...)
 
-### Marketing
-* Tik-tok
-* Instagram
-* Facebook
-* Youtube
+# Get a list of people who share high compatibility with you and start chatting right away.
+
+### Tech / Stack
+* Flutter
+* Spring
+* Java
+* MaridDB
+* Docker
+* Hibernate
