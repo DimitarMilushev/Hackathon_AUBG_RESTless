@@ -24,7 +24,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     return provider.isLoading
         ? const Center(child: CircularProgressIndicator())
         : provider.status == DashboardStatus.searching
-            ? _SearchScreen(tags: tags)
+            ? _SearchScreen(tags, callback: () {
+                // DUMMY FIX cause state is bugged out
+                setState(() {});
+                Future.delayed(Duration(seconds: 3), () => setState(() {}));
+              })
             : _MatchingScreen(
                 matches: ref.watch(dashboardProvider).potentialPartners,
               );
@@ -34,7 +38,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     // mocks
     return [
       Tag(1, 'Books'),
-      Tag(2, 'Cycling'),
+      Tag(7, 'Cycling'),
       Tag(3, 'Football'),
       Tag(4, 'Astrology'),
       Tag(5, 'Astronomy'),
@@ -101,7 +105,8 @@ class _MatchingScreenState extends State<_MatchingScreen> {
 
 class _SearchScreen extends ConsumerStatefulWidget {
   final List<Tag> tags;
-  const _SearchScreen({super.key, required this.tags});
+  final callback;
+  const _SearchScreen(this.tags, {super.key, required this.callback});
 
   @override
   ConsumerState<_SearchScreen> createState() => _SearchScreenState();
@@ -172,6 +177,7 @@ class _SearchScreenState extends ConsumerState<_SearchScreen> {
       GestureDetector(
           onTap: () {
             ref.read(dashboardProvider.notifier).getPotentialPartners(ref);
+            widget.callback.call();
           },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 20),
