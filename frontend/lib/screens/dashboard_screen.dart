@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/tag_model.dart';
 
 enum MatchingScreenStates { searching, match }
@@ -102,6 +99,17 @@ class _SearchScreenState extends State<_SearchScreen> {
               .toList(),
         ),
       ),
+      Visibility(
+          maintainAnimation: true,
+          maintainInteractivity: true,
+          maintainSemantics: true,
+          maintainSize: true,
+          maintainState: true,
+          visible: choices.isEmpty,
+          child: Text(
+            'Choose at least 5 tags to search for a match',
+            style: TextStyle(color: Colors.grey),
+          )),
       Expanded(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
