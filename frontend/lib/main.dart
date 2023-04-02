@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       routerConfig: GoRouter(
-        initialLocation: LoginScreen.path,
+        initialLocation: DashboardScreen.path,
         navigatorKey: _rootNavigatorKey,
         routes: ref.read(routerProvider),
       ),

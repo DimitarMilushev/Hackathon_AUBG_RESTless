@@ -1,7 +1,26 @@
+import 'package:frontend/models/tag_model.dart';
+
 class User {
   final String username;
-  final String password;
-  User(this.username, this.password);
+  final String email;
+  final String bio;
+  final int age;
+  final String city;
+  final String country;
+  final String gender;
+  final RelationshipStatus status;
+  final List<Tag> interests;
+  User(
+    this.username,
+    this.email,
+    this.bio,
+    this.age,
+    this.city,
+    this.country,
+    this.gender,
+    this.status,
+    this.interests,
+  );
 }
 
 class UserLoginRequest {
@@ -22,3 +41,5 @@ class UserLoginResponse {
   static UserLoginResponse fromJson(Map<String, dynamic> json) =>
       UserLoginResponse(json['token']);
 }
+
+enum RelationshipStatus { available, unavailable }
