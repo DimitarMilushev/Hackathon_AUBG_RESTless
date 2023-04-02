@@ -1,26 +1,19 @@
 package com.restless_hackaubg.models;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.NumericField;
-import org.springframework.stereotype.Indexed;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Indexed
 @Table(name = "cities")
 public class City {
     @Id
-    @NumericField
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "city_id")
     private Integer id;
-
-    @Field
     @Column(name = "name")
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     public City() {
     }
@@ -39,5 +32,13 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }

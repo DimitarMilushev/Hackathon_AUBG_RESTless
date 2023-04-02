@@ -3,16 +3,16 @@ package com.restless_hackaubg.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "countries")
-public class Country {
+@Table(name = "genders")
+public class Gender {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id")
+    @Column(name = "gender_id")
     private Integer id;
     @Column(name = "name")
     private String name;
 
-    public Country() {
+    public Gender() {
     }
 
     public Integer getId() {

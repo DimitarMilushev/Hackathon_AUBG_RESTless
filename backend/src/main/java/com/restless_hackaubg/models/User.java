@@ -1,55 +1,49 @@
 package com.restless_hackaubg.models;
 
-import org.hibernate.search.annotations.*;
-import org.hibernate.search.annotations.Index;
-import org.springframework.stereotype.Indexed;
-
 import javax.persistence.*;
-//@Getter @Setter
-//@AllArgsConstructor
-//@NoArgsConstructor
+import java.util.List;
+import java.util.Set;
+
 @Entity
-@Indexed
 @Table(name = "users")
 public class User {
-    @SortableField
-    @NumericField
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    Integer id;
+    private Integer id;
+
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "email")
     private String email;
-    @ManyToOne
-    @IndexedEmbedded
-    @JoinColumn(name = "gender_id")
-    private Genders gender;
-    @Field(index = Index.YES, analyze = Analyze.NO, store = Store.NO)
-    @NumericField
-    @Column(name = "age")
-    private Integer age;
-    @Column(name = "bio_id")
-    @JoinColumn(name = "bio_id", referencedColumnName = "description")
+
+    @Column(name = "bio")
     private String bio;
 
-    @IndexedEmbedded
-    @ManyToOne
+    @Column(name = "age")
+    private Integer age;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
 
-    @IndexedEmbedded
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private Country country;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "gender_id")
+    private Gender gender;
 
-    @IndexedEmbedded
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
     private Status status;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_tags", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> interests;
 
     public User() {
     }
@@ -86,12 +80,12 @@ public class User {
         this.email = email;
     }
 
-    public Genders getGender() {
-        return gender;
+    public String getBio() {
+        return bio;
     }
 
-    public void setGender(Genders gender) {
-        this.gender = gender;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public Integer getAge() {
@@ -102,14 +96,6 @@ public class User {
         this.age = age;
     }
 
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
     public City getCity() {
         return city;
     }
@@ -118,12 +104,12 @@ public class User {
         this.city = city;
     }
 
-    public Country getCountry() {
-        return country;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public Status getStatus() {
@@ -132,5 +118,13 @@ public class User {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<Tag> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<Tag> interests) {
+        this.interests = interests;
     }
 }

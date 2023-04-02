@@ -1,36 +1,25 @@
 package com.restless_hackaubg.models;
 
-
-
-import org.hibernate.search.annotations.Field;
-import org.springframework.stereotype.Indexed;
-
 import javax.persistence.*;
 
-//@Getter @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Entity
-@Indexed
-@Table(name = "genders")
-public class Genders{
+@Table(name = "tags")
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "gender_id")
-    private int id;
-
-    @Field
+    @Column(name = "tag_id")
+    private Integer id;
     @Column(name = "name")
     private String name;
 
-    public Genders() {
+    public Tag() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,28 +1,25 @@
 package com.restless_hackaubg.models;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-
 import javax.persistence.*;
 
 @Entity
-@Indexed
 @Table(name = "statuses")
 public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "status_id")
-    int id;
-
-    @Field
+    private Integer id;
     @Column(name = "name")
-    String name;
+    private String name;
 
-    public int getId() {
+    public Status() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

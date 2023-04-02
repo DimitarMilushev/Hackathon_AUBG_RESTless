@@ -2,40 +2,55 @@ package com.restless_hackaubg.models.dtos;
 
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 //@Getter @Setter
 //@NoArgsConstructor
 public class RequestMatchDto {
 
-    private String country;
-    private String city;
-    @NotEmpty(message = "You must provide gender")
-    private String gender;
+    private Integer countryId;
+    private Integer cityId;
+    @NotNull(message = "You must provide gender")
+    private Integer genderId;
+
+    @NotNull
+    private List<Integer> interests;
+
+
 
     public RequestMatchDto() {
     }
 
-    public String getCountry() {
-        return country;
+    public Integer getCountryId() {
+        return countryId;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountryId(Integer countryId) {
+        this.countryId = countryId;
     }
 
-    public String getCity() {
-        return city;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 
-    public String getGender() {
-        return gender;
+    public Integer getGenderId() {
+        return genderId;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setGenderId(Integer genderId) {
+        this.genderId = genderId;
+    }
+
+    public List<Integer> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<Integer> interests) {
+        this.interests = interests;
     }
 }
