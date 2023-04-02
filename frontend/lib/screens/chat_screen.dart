@@ -15,6 +15,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  bool showAdvisor = true;
   final messages = Queue<Message>();
   Queue<String> phrases = Queue.from(['Hello', 'Not much', 'Nice!']);
 
@@ -32,21 +33,56 @@ class _ChatScreenState extends State<ChatScreen> {
       );
       phrases.removeFirst();
     }
-    return Column(children: [
-      Expanded(
-          child: MessagesList(
-        messages: messages.toList(),
-      )),
-      ChatBox(callback: (value) {
-        setState(() {
-          messages.add(Message(
-              idUser: '1',
-              urlAvatar: 'urlAvatar',
-              username: 'username',
-              message: value,
-              createdAt: DateTime.now()));
-        });
-      })
-    ]);
+    return GestureDetector(
+        onTap: () {
+          setState(() {
+            showAdvisor = false;
+          });
+        },
+        child: Stack(children: [
+          if (showAdvisor) ...[
+            Positioned(
+                bottom: 148,
+                right: 124,
+                child: Container(
+                  padding: EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      border: Border.all(
+                          width: 3,
+                          color: Theme.of(context).colorScheme.primary)),
+                  child: Text('Say `Hello` to your new friend!'),
+                )),
+            Positioned(
+                width: 86,
+                height: 86,
+                bottom: 128,
+                right: 24,
+                child: Container(
+                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  child: Image.network(
+                    "https://imgtr.ee/images/2023/04/02/U4JyV.jpg",
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                )),
+          ],
+          Positioned(
+              child: Column(children: [
+            Expanded(
+                child: MessagesList(
+              messages: messages.toList(),
+            )),
+            ChatBox(callback: (value) {
+              setState(() {
+                messages.add(Message(
+                    idUser: '1',
+                    urlAvatar: 'urlAvatar',
+                    username: 'username',
+                    message: value,
+                    createdAt: DateTime.now()));
+              });
+            }),
+          ])),
+        ]));
   }
 }

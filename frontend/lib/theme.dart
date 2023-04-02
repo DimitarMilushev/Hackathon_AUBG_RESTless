@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-final ColorScheme _colorScheme = ColorScheme(
+const ColorScheme _colorScheme = ColorScheme(
     brightness: Brightness.light,
-    primary: const Color(0x00F487E4),
-    onPrimary: const Color(0x008B3C7F),
-    secondary: Color(0x008B3C7F),
-    onSecondary: Color(0x00757E90),
+    primary: Color(0xFFF487E4),
+    onPrimary: Color.fromARGB(255, 188, 82, 173),
+    secondary: Color(0xFF8B3C7F),
+    onSecondary: Color(0xFF757E90),
     error: Colors.redAccent,
     onError: Colors.red,
-    background: const Color(0x00192D86),
+    background: Color(0xFF192D86),
     onBackground: Colors.transparent,
     surface: Colors.transparent,
     onSurface: Colors.transparent);
@@ -16,8 +16,8 @@ final ColorScheme _colorScheme = ColorScheme(
 final mainTheme = ThemeData(
     colorScheme: _colorScheme,
     // Define the default brightness and colors.
-    brightness: Brightness.dark,
-    primaryColor: Colors.lightBlue[800],
+    brightness: Brightness.light,
+    // primaryColor: Colors.lightBlue[800],
 
     // Define the default font family.
     fontFamily: 'Georgia',
@@ -30,6 +30,7 @@ final mainTheme = ThemeData(
       bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
     ),
     inputDecorationTheme: InputDecorationTheme(
+        fillColor: _colorScheme.primary,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(0.3)))),
     appBarTheme: AppBarTheme(color: _colorScheme.primary));

@@ -29,8 +29,9 @@ class _ChatBoxState extends State<ChatBox> {
           SizedBox(width: 8),
           Align(
               child: Container(
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).colorScheme.primary),
                   child: IconButton(
                       onPressed: () {
                         final message = textEditingController.text;

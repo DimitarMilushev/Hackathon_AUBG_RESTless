@@ -18,7 +18,9 @@ class MatchinCard extends StatelessWidget {
         // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-            color: Colors.blueGrey, borderRadius: BorderRadius.circular(20)),
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: Stack(
           children: [
             Positioned(
@@ -32,7 +34,10 @@ class MatchinCard extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 152),
                   child: ElevatedButton(
                     onPressed: () => context.go(ChatScreen.path),
-                    child: Text('Start chatting!'),
+                    child: Text(
+                      'Start chatting!',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   )),
             )),
             Positioned.fill(
@@ -89,7 +94,8 @@ class _CardHeader extends StatelessWidget {
     return Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-            color: Color(0xFFFFFFF), borderRadius: BorderRadius.circular(20)),
+            color: Theme.of(context).colorScheme.onPrimary,
+            borderRadius: BorderRadius.circular(20)),
         height: 128,
         child: Row(children: [
           _buildAvatar(),

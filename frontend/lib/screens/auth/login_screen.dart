@@ -35,45 +35,50 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadableScreenWrapper(
-      isLoading: _isLoading,
-      child: AuthFormWrapper(
-        formKey: formKey,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Welcome',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline3,
+    return Container(
+      child: LoadableScreenWrapper(
+        isLoading: _isLoading,
+        child: AuthFormWrapper(
+          formKey: formKey,
+          body: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset('assets/logo_black.png'),
+                // Text(
+                //   'Welcome',
+                //   textAlign: TextAlign.center,
+                //   style: Theme.of(context).textTheme.headline3,
+                // ),
+                SizedBox(height: 40),
+                TextFormField(
+                  decoration: InputDecoration(
+                      border: Theme.of(context).inputDecorationTheme.border,
+                      hintText: 'Email...'),
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (_) {
+                    if (errorMessage != null) return '';
+                  },
+                ),
+                SizedBox(height: 5),
+                TextFormField(
+                  decoration: InputDecoration(hintText: 'Password...'),
+                  controller: passwordController,
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  validator: (_) => errorMessage,
+                ),
+                SizedBox(height: 64),
+                RoundedButton(text: 'LOGIN', onPressed: loginPressed),
+                SizedBox(height: 5),
+                CustomTextButton(
+                  text: "Register",
+                  onPressed: () => context.push(RegisterScreen.path),
+                )
+              ],
             ),
-            SizedBox(height: 40),
-            TextFormField(
-              decoration: InputDecoration(
-                  border: Theme.of(context).inputDecorationTheme.border,
-                  hintText: 'Email...'),
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              validator: (_) {
-                if (errorMessage != null) return '';
-              },
-            ),
-            SizedBox(height: 5),
-            TextFormField(
-              decoration: InputDecoration(hintText: 'Password...'),
-              controller: passwordController,
-              obscureText: true,
-              keyboardType: TextInputType.text,
-              validator: (_) => errorMessage,
-            ),
-            SizedBox(height: 64),
-            RoundedButton(text: 'LOGIN', onPressed: loginPressed),
-            SizedBox(height: 5),
-            CustomTextButton(
-              text: "Register",
-              onPressed: () => context.push(RegisterScreen.path),
-            )
-          ],
+          ),
         ),
       ),
     );

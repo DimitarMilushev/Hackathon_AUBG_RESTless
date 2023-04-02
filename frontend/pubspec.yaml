@@ -59,6 +59,9 @@ flutter:
   assets:
     - assets/advisor.png
     - assets/logo.png
+    - assets/logo_black.png
+    - assets/logo_pink.png
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -6,6 +6,7 @@ import 'package:frontend/screens/auth/login_screen.dart';
 import 'package:frontend/screens/auth/register_screen.dart';
 import 'package:frontend/screens/chat_screen.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
+import 'package:frontend/theme.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
@@ -25,23 +26,22 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp.router(
       title: 'Flutter Demo',
       routerConfig: GoRouter(
-        initialLocation: LoginScreen.path,
+        // initialLocation: LoginScreen.path,
         navigatorKey: _rootNavigatorKey,
         routes: ref.watch(routerProvider),
       ),
       builder: (context, child) => SafeArea(
         child: Scaffold(
           appBar: AppBar(
-              title: Text(
-            'PlayDate',
-            style: Theme.of(context).textTheme.bodyLarge,
+              leading: Image.asset(
+            'assets/logo_black.png',
+            height: 16,
+            width: 16,
           )),
           body: child,
         ),
       ),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: mainTheme,
     );
   }
 }

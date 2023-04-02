@@ -27,7 +27,8 @@ class MessageBubble extends StatelessWidget {
           margin: EdgeInsets.all(16),
           constraints: BoxConstraints(maxWidth: 140),
           decoration: BoxDecoration(
-            color: isMe ? Colors.grey[100] : Theme.of(context).accentColor,
+            color:
+                isMe ? Colors.grey[300] : Theme.of(context).colorScheme.primary,
             borderRadius: isMe
                 ? borderRadius.subtract(BorderRadius.only(bottomRight: radius))
                 : borderRadius.subtract(BorderRadius.only(bottomLeft: radius)),

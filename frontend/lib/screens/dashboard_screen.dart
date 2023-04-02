@@ -176,6 +176,7 @@ class _SearchScreenState extends ConsumerState<_SearchScreen> {
       ),
       GestureDetector(
           onTap: () {
+            if (choices.length < 5) return;
             ref.read(dashboardProvider.notifier).getPotentialPartners(ref);
             widget.callback.call();
           },
@@ -183,7 +184,7 @@ class _SearchScreenState extends ConsumerState<_SearchScreen> {
             padding: EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue,
+              color: Theme.of(context).colorScheme.primary,
             ),
             child: Padding(
                 padding: EdgeInsets.all(16),
@@ -199,7 +200,7 @@ class _SearchScreenState extends ConsumerState<_SearchScreen> {
   Badge _getBadge(Tag tag) {
     return Badge(
       largeSize: 32,
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       label: Padding(
         padding: EdgeInsets.all(4),
         child: Text(
