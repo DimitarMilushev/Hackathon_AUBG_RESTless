@@ -1,9 +1,9 @@
 package com.restless_hackaubg.controllers;
 
 import com.restless_hackaubg.exceptions.EntityNotFoundException;
+import com.restless_hackaubg.models.City;
 import com.restless_hackaubg.models.Tag;
-import com.restless_hackaubg.models.User;
-import com.restless_hackaubg.services.TagService;
+import com.restless_hackaubg.services.CityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,23 +14,23 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tags")
-public class TagController {
-    private final TagService tagService;
+@RequestMapping("/cities")
+public class CityController {
+    private final CityService cityService;
 
-    public TagController(TagService tagService) {
-        this.tagService = tagService;
+    public CityController(CityService cityService) {
+        this.cityService = cityService;
     }
 
-    @GetMapping()
-    public List<Tag> getAll() {
-        return tagService.findAll();
+    @GetMapping
+    public List<City> findAll() {
+        return cityService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Tag getById(@PathVariable Integer id) {
+    public City getById(@PathVariable Integer id) {
         try {
-            return tagService.findById(id);
+            return cityService.findById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

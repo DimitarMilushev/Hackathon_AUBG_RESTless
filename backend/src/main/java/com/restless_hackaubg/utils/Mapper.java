@@ -33,7 +33,6 @@ public class Mapper {
         User user = new User();
         user.setGender(genderService.findById(requestMatchDto.getGenderId()));
         user.setCity(cityService.findById(requestMatchDto.getGenderId()));
-        cityService.findById(requestMatchDto.getCityId()).setCountry(countryService.findById(requestMatchDto.getCountryId()));
         List<Tag> searchedInterests = new ArrayList<>();
         for (Integer id:requestMatchDto.getInterests()) {
             Tag optionalTag = tagService.findById(id);
