@@ -5,7 +5,10 @@ import com.restless_hackaubg.models.dtos.RequestMatchDto;
 import com.restless_hackaubg.repositories.CityRepository;
 import com.restless_hackaubg.repositories.CountryRepository;
 import com.restless_hackaubg.repositories.GenderRepository;
-import com.restless_hackaubg.repositories.TagRepository;
+import com.restless_hackaubg.services.CityService;
+import com.restless_hackaubg.services.CountryService;
+import com.restless_hackaubg.services.GenderService;
+import com.restless_hackaubg.services.TagService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,30 +17,27 @@ import java.util.Optional;
 
 @Component
 public class Mapper {
-    private final TagRepository tagRepository;
-    private final GenderRepository genderRepository;
-    private final CountryRepository countryRepository;
-    private final CityRepository cityRepository;
+    private final TagService tagService;
+    private final GenderService genderService;
+    private final CountryService countryService;
+    private final CityService cityService;
 
-    public Mapper(TagRepository tagRepository, GenderRepository genderRepository, CountryRepository countryRepository, CityRepository cityRepository) {
-        this.tagRepository = tagRepository;
-        this.genderRepository = genderRepository;
-        this.countryRepository = countryRepository;
-        this.cityRepository = cityRepository;
+    public Mapper(TagService tagService, GenderService genderService, CountryService countryService, CityService cityService) {
+        this.tagService = tagService;
+        this.genderService = genderService;
+        this.countryService = countryService;
+        this.cityService = cityService;
     }
 
     public User mapRequestMatchDtoToUser(RequestMatchDto requestMatchDto) {
         User user = new User();
-        Optional<Gender> gender = genderRepository.findById(requestMatchDto.getGenderId());
-        gender.ifPresent(user::setGender);
-        Optional<City> city = cityRepository.findById(requestMatchDto.getCityId());
-        city.ifPresent(user::setCity);
-        Optional<Country> country = countryRepository.findById(requestMatchDto.getCountryId());
-        country.ifPresent(value -> city.get().setCountry(value));
+        user.setGender(genderService.findById(requestMatchDto.getGenderId()));
+        user.setCity(cityService.findById(requestMatchDto.getGenderId()));
+        cityService.findById(requestMatchDto.getCityId()).setCountry(countryService.findById(requestMatchDto.getCountryId()));
         List<Tag> searchedInterests = new ArrayList<>();
         for (Integer id:requestMatchDto.getInterests()) {
-            Optional<Tag> optionalTag = tagRepository.findById(id);
-            optionalTag.ifPresent(searchedInterests::add);
+            Tag optionalTag = tagService.findById(id);
+            searchedInterests.add(optionalTag);
         }
         user.setInterests(searchedInterests);
         return user;
