@@ -25,7 +25,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp.router(
       title: 'Flutter Demo',
       routerConfig: GoRouter(
-        // initialLocation: LoginScreen.path,
+        initialLocation: LoginScreen.path,
         navigatorKey: _rootNavigatorKey,
         routes: ref.watch(routerProvider),
       ),
