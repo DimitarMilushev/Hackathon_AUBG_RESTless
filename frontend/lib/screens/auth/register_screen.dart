@@ -48,23 +48,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
               style: Theme.of(context).textTheme.displaySmall,
             ),
             SizedBox(height: 40),
-            TextField(
+            TextFormField(
+              decoration: InputDecoration(hintText: 'Email...'),
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 5),
             TextField(
               controller: passwordController,
-              // labelText: 'Password',
+              decoration: InputDecoration(hintText: 'Password...'),
               obscureText: true,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.visiblePassword,
             ),
             SizedBox(height: 5),
             TextField(
               controller: confirmPasswordController,
-              // labelText: 'Password',
+              decoration: InputDecoration(hintText: 'Confirm password...'),
               obscureText: true,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.visiblePassword,
             ),
             SizedBox(height: 64),
             RoundedButton(text: 'SignUp', onPressed: () => loginPressed())
