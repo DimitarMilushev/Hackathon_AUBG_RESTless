@@ -1,76 +1,115 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/tag_model.dart';
+import 'package:frontend/models/user_model.dart';
+import 'package:frontend/providers/auth_providers.dart';
+import 'package:frontend/providers/dashboard_providers.dart';
+import 'package:frontend/screens/chat_screen.dart';
+import 'package:frontend/widgets/matching_card.dart';
+import 'package:go_router/go_router.dart';
 
-enum MatchingScreenStates { searching, match }
-
-class DashboardScreen extends StatefulWidget {
+class DashboardScreen extends ConsumerStatefulWidget {
   static const String path = '/';
 
   const DashboardScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
-  bool isSearching = true;
+class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(dashboardProvider.notifier);
     final tags = _getTags();
-    return isSearching
-        ? _SearchScreen(
-            tags: tags,
-            onSearchPressed: () {
-              setState(() {
-                isSearching = !isSearching;
-              });
-            })
-        : _MatchingScreen();
+    return provider.isLoading
+        ? const CircularProgressIndicator()
+        : provider.status == DashboardStatus.searching
+            ? _SearchScreen(tags: tags)
+            : _MatchingScreen(
+                matches: ref.watch(dashboardProvider).potentialPartners,
+              );
   }
 
   _getTags() {
     // mocks
     return [
-      Tag(1, 'Tag1'),
-      Tag(2, 'Tag2'),
-      Tag(3, 'Tag3'),
-      Tag(4, 'Tag4'),
-      Tag(5, 'Tag5'),
-      Tag(10, 'Tag13'),
-      Tag(20, 'Tag23'),
-      Tag(30, 'Tag33'),
-      Tag(40, 'Tag43'),
-      Tag(50, 'Tag53'),
+      Tag(1, 'Books'),
+      Tag(2, 'Cycling'),
+      Tag(3, 'Football'),
+      Tag(4, 'Astrology'),
+      Tag(5, 'Astronomy'),
+      Tag(10, 'Hiking'),
+      Tag(20, 'Swimming'),
+      Tag(30, 'Animals'),
+      Tag(40, 'Programming'),
+      Tag(50, 'Literature'),
     ];
   }
 }
 
 class _MatchingScreen extends StatefulWidget {
-  const _MatchingScreen({super.key});
+  final List<User> matches;
+  const _MatchingScreen({required this.matches});
 
   @override
   State<_MatchingScreen> createState() => _MatchingScreenState();
 }
 
 class _MatchingScreenState extends State<_MatchingScreen> {
+  int index = 0;
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(children: [
+      Expanded(
+          child: MatchinCard(
+        user: widget.matches[index],
+      )),
+      Visibility(
+          visible: !_reachedEnd,
+          maintainAnimation: true,
+          maintainInteractivity: true,
+          maintainSemantics: true,
+          maintainSize: true,
+          maintainState: true,
+          child: GestureDetector(
+              onTap: () {
+                if (!_reachedEnd) {
+                  setState(() {
+                    ++index;
+                  });
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blue,
+                ),
+                child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                      size: 36,
+                    )),
+              )))
+    ]);
   }
+
+  bool get _reachedEnd => widget.matches.length <= (index + 1);
 }
 
-class _SearchScreen extends StatefulWidget {
+class _SearchScreen extends ConsumerStatefulWidget {
   final List<Tag> tags;
-  final void Function() onSearchPressed;
-  const _SearchScreen(
-      {super.key, required this.tags, required this.onSearchPressed});
+  const _SearchScreen({super.key, required this.tags});
 
   @override
-  State<_SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<_SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<_SearchScreen> {
+class _SearchScreenState extends ConsumerState<_SearchScreen> {
   final GlobalKey<FormBuilderState> dropdownKey = GlobalKey();
   Set<Badge> choices = {};
   List<Tag> availableTags = [];
@@ -127,12 +166,15 @@ class _SearchScreenState extends State<_SearchScreen> {
                     choices.add(_getBadge(newValue));
                     dropdownKey.currentState?.fields['tags']?.reset();
                   });
+                  ref.watch(dashboardProvider.notifier).addChoice(newValue);
                 }
               }),
         ),
       ),
       GestureDetector(
-          onTap: () => widget.onSearchPressed.call(),
+          onTap: () {
+            ref.read(dashboardProvider.notifier).getPotentialPartners(ref);
+          },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(

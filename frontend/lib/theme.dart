@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 final ColorScheme _colorScheme = ColorScheme(
     brightness: Brightness.light,
-    primary: const Color(0x00ff6f91),
-    onPrimary: const Color(0x00D169A3),
-    secondary: Color(0x009A67A5),
-    onSecondary: Color(0x00666296),
+    primary: const Color(0x007444C0),
+    onPrimary: const Color(0x005636B8),
+    secondary: Color(0x00FFFFF),
+    onSecondary: Color(0x00757E90),
     error: Colors.redAccent,
     onError: Colors.red,
     background: Colors.transparent,

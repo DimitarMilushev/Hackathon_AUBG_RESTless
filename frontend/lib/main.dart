@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
           appBar: AppBar(
               title: Text(
             'PlayDate',
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyLarge,
           )),
           body: child,
         ),
@@ -52,29 +52,22 @@ bool isLoggedIn = false;
 
 final routerProvider = Provider<List<RouteBase>>(
   (ref) => [
-    ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) {
-          return ScaffoldWithBottomNavBar(child: child);
-        },
-        routes: [
-          GoRoute(
-            path: DashboardScreen.path,
-            builder: (context, state) => const DashboardScreen(),
-          ),
-          // redirect: (context, state) =>
-          //     ref.read(sessionProvider.notifier).isLoggedIn
-          //         ? null
-          //         : LoginScreen.path),
-          GoRoute(
-            path: ChatScreen.path,
-            builder: (context, state) => const ChatScreen(),
-          ),
-          GoRoute(
-            path: AboutScreen.path,
-            builder: (context, state) => const AboutScreen(),
-          )
-        ]),
+    GoRoute(
+      path: DashboardScreen.path,
+      builder: (context, state) => const DashboardScreen(),
+    ),
+    // redirect: (context, state) =>
+    //     ref.read(sessionProvider.notifier).isLoggedIn
+    //         ? null
+    //         : LoginScreen.path),
+    GoRoute(
+      path: ChatScreen.path,
+      builder: (context, state) => const ChatScreen(),
+    ),
+    GoRoute(
+      path: AboutScreen.path,
+      builder: (context, state) => const AboutScreen(),
+    ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: LoginScreen.path,
